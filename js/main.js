@@ -6,11 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const body_parser_1 = __importDefault(require("body-parser"));
 const method_override_1 = __importDefault(require("method-override"));
 const express_1 = __importDefault(require("express"));
-const api_prodotto_1 = __importDefault(require("./router/api_prodotto"));
+const api_prodotto_1 = __importDefault(require("./router/prodotto/api_prodotto"));
 require("dotenv/config");
 const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
 app.use((0, method_override_1.default)());
+app.use('/uploads', express_1.default.static(process.cwd() + '/uploads'));
 app.use(function (err, req, res, next) {
     console.error(err.stack);
     res.status(500).json({ error: "error body" });

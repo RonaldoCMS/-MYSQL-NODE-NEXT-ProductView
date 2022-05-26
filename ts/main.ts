@@ -8,6 +8,8 @@ const app = express()
 
 app.use(bodyParser.json());
 app.use(methodOverride());
+app.use('/uploads', express.static(process.cwd() + '/uploads'))
+
 app.use(function(err:any, req:any, res:any, next:any) {
   console.error(err.stack);
   res.status(500).json({error: "error body"});

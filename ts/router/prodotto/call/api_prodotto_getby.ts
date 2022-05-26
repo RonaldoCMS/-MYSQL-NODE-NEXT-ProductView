@@ -1,6 +1,7 @@
 import MySQLProdotto from "../../../database/mysql/prodotto/mysql_prodotto";
 import { Request, Response } from "express";
-
+import 'dotenv/config';
+import { imgToUrl } from "../api_prodotto";
 
 async function __api__prodotto_getBy__ (req: Request, res: Response) {
     var query = req.query;
@@ -8,6 +9,7 @@ async function __api__prodotto_getBy__ (req: Request, res: Response) {
     if (Object.keys(req.query).length == 1) {
       if (query.nome != null) { 
         let prodotti = await connector.selectByName(req.query.nome as String);
+        prodotti[0].img = imgToUrl(prodotti[0].img!);
         res.send(prodotti[0]);
         return;
       } else if (query.costo != null) {
